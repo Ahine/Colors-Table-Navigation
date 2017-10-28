@@ -10,6 +10,8 @@ import UIKit
 
 class ColorsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var colorsTableView: UITableView!
+    
     var colors = [Color(name: "red", color: UIColor.red),
                   Color(name: "orange", color: UIColor.orange),
                   Color(name: "yellow", color: UIColor.yellow),
@@ -21,7 +23,7 @@ class ColorsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "Colors"
         // Do any additional setup after loading the view.
     }
 
@@ -43,9 +45,16 @@ class ColorsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cellColor = colors[indexPath.row]
         cell.textLabel?.text = cellColor.name
         cell.backgroundColor = cellColor.color
+        cell.selectionStyle = .none
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ColorDetailViewController,
+           let row = colorsTableView.indexPathForSelectedRow?.row{
+            destination.color = colors[row]
+        }
+    }
 
     /*
     // MARK: - Navigation
