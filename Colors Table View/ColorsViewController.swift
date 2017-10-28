@@ -10,29 +10,14 @@ import UIKit
 
 class ColorsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var colors = ["red","orange","yellow","green","blue","purple","brown"]
-    
-    func colorToUIColor(color:String) -> UIColor{
-        switch(color){
-        case "red":
-            return UIColor.red
-        case "orange":
-            return UIColor.orange
-        case "yellow":
-            return UIColor.yellow
-        case "green":
-            return UIColor.green
-        case "blue":
-            return UIColor.blue
-        case "purple":
-            return UIColor.purple
-        case "brown":
-            return UIColor.brown
-        default:
-            return UIColor.white
-        }
-     
-    }
+    var colors = [Color(name: "red", color: UIColor.red),
+                  Color(name: "orange", color: UIColor.orange),
+                  Color(name: "yellow", color: UIColor.yellow),
+                  Color(name: "green", color: UIColor.green),
+                  Color(name: "blue", color: UIColor.blue),
+                  Color(name: "purple", color: UIColor.purple),
+                  Color(name: "brown", color: UIColor.brown),
+                  Color(name: "white", color: UIColor.white)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,9 +40,9 @@ class ColorsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "colorCell", for: indexPath)
-        let color = colors[indexPath.row]
-        cell.textLabel?.text = color
-        cell.backgroundColor = colorToUIColor(color: color)
+        let cellColor = colors[indexPath.row]
+        cell.textLabel?.text = cellColor.name
+        cell.backgroundColor = cellColor.color
         return cell
     }
     
